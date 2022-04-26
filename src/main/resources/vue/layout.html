@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SmovieP</title>
+        <link href="/logo.png" rel="icon">
+        <meta charset="utf8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="telephone=no" name="format-detection">
+        <link href="https://fonts.googleapis.com/css?family=Lobster+Two|Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
+        <link href="/webjars/vuetify/1.5.16/dist/vuetify.min.css" rel="stylesheet">
+        <link rel="preload" href="/logo.png" as="image">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <script src="/webjars/momentjs/2.24.0/min/moment.min.js"></script>
+        <script src="/webjars/axios/0.19.0/dist/axios.min.js"></script>
+        <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+        <script src="webjars/vuetify/1.5.16/dist/vuetify.min.js"></script>
+
+        <!-- Font Awesome Icon Library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bulma -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        @componentRegistration
+    </head>
+    <body>
+        <main id="main-vue" class="main-vue" v-cloak>@routeComponent</main>
+        <script>new Vue({el: "#main-vue"});</script>
+    </body>
+</html>
+
+<style>
+    bVody {
+        background: rgb(0,57,96);
+        background: -moz-linear-gradient(321deg, rgba(0,57,96,1) 0%, rgba(11,115,129,1) 100%);
+        background: -webkit-linear-gradient(321deg, rgba(0,57,96,1) 0%, rgba(11,115,129,1) 100%);
+        background: linear-gradient(321deg, rgba(0,57,96,1) 0%, rgba(11,115,129,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#003960",endColorstr="#0b7381",GradientType=1);
+    }
+</style>
