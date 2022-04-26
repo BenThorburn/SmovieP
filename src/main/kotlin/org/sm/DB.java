@@ -105,6 +105,61 @@ public class DB implements AutoCloseable {
         return output;
     }
 
+
+
+
+
+    public JSONObject x() {
+        String result = "";
+        String castResult = "";
+        JSONObject output = new JSONObject();
+        JSONArray array = new JSONArray();
+        try {
+            PreparedStatement s = connection.prepareStatement(
+                    "SELECT title, movies_metadata.id, revenue, release_date,"
+                    + " budget, genres, crew, casting"
+                    + " FROM movies_metadata INNER JOIN credits ON movies_metadata.id = credits.creditsID limit 1"
+            );
+
+            ResultSet rs = s.executeQuery();
+
+            while(rs.next()) {
+                JSONArray crewArray = new JSONArray(rs.getString("crew"));
+                for(int i=0; i < crewArray.length(); i++) {
+                    JSONObject director = crewArray.getJSONObject(i);
+                    if (director.getString("job").equals("Director")) {
+                        result = director.getString("name");
+                    }
+                }
+
+                JSONArray castArray = new JSONArray(rs.getString("casting"));
+                for(int i=0; i<castArray.length();i++){
+                    JSONObject castMember = castArray.getJSONObject(i);
+                    castResult += castMember.getString("name") + ", ";
+                }
+
+                JSONObject inst = new JSONObject();
+                inst.put("title", rs.getString("title"));
+                inst.put("id", rs.getString("id"));
+                inst.put("revenue", rs.getString("revenue"));
+                inst.put("release_date", rs.getString("release_date"));
+                inst.put("director", result);
+                //inst.put("cast", rs.getString("casting"));
+                inst.put("cast", castResult);
+                array.put(inst);
+            }
+            output.putOnce("data", array);
+        } catch (SQLException sqle) { error(sqle); }
+
+        System.out.println(output);
+        return output;
+    }
+
+
+
+
+
+
     /**
      * Closes the connection to the database, required by AutoCloseable interface.
      */
