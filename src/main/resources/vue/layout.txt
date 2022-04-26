@@ -1,0 +1,4 @@
+<!--Javalin Vue plugin automatically puts all vue files from `resources/vue` folder into @componentRegistration -->
+<!-- Style left empty, use `resources/vue/components/frame.vue' as <frame></frame> to encapsulate
+     other vue files content, styling will be inherited -->
+<!-- Javalin mounts one vue component to @routeComponent depending on the URL -->

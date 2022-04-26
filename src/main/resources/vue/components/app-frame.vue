@@ -1,6 +1,7 @@
 <template id="app-frame">
     <v-app>
         <v-content>
+            <nav-bar></nav-bar>
             <v-container>
                 <slot></slot>
             </v-container>
@@ -86,6 +87,7 @@ v-container {
     width: 100%;
     border-radius: 6px;
     transition: transform 0.2s linear;
+    background: url(http://goo.gl/vyAs27);
 }
 .image-box:hover img {
     transform: scale(1.05);

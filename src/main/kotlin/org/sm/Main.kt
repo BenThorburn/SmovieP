@@ -11,6 +11,7 @@ not returning all the data needed! Limiting the query has this unfortunate effec
  where its not needed. How can queries be passed directly to the component when api? This would be good functionality
  in this instance :)
 */
+
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.apibuilder.ApiBuilder.path
@@ -26,36 +27,39 @@ fun main() {
     //app.error(500, "html", VueComponent("err500-view"))
 
     app.routes {
-        get("/") { ctx -> ctx.redirect("/browse")}
         // View for multiple movies
-        get("/browse/", VueComponent("mov-overview"))
+        get("/", VueComponent("mov-overview"))
         // View for specific movie
         get("/profile/{title-id}", VueComponent("mov-profile"))
     }
 
     app.routes {
         path("api") {
+            /**
+             *
+             * API get call for retrieving all movies
+             * consumed by VueComponent mov-overview.vue via "/" path
+            */
             get("/titles") { ctx ->
-                DB().use { db ->
-                    ctx.contentType("application/json")
-                    //val lim : String? = ctx.queryParam("lim")
-                    //if (lim != null) {}
-                    ctx.json(db.getTitles().toString())
-                }
-            }
+                DB().use { db -> // .use (kotlin) equiv to java's try with resources
+                    ctx.contentType("application/json") // Expect json data
+                    ctx.json(db.x().toString())         // Context json return
+                } // END OF DB() USE
+            } // END GET ROUTE
+
+            /**
+             *
+             * API get call for retrieving information on a specific movie
+             * consumed by VueComponent mov-profile.vue via "/profile/{title-id}"
+             * where title-id is passed as a path param then as a parameter to DB method
+            */
             get("/titles/profile/{title-id}") { ctx ->
-                DB().use { db ->
+                DB().use { db -> // .use (kotlin) equiv to java's try with resources
                     ctx.contentType("application/json")
-                    val titleId = ctx.pathParam("title-id") // For cleaner handles please separate context calls
+                    val titleId = ctx.pathParam("title-id")
                     ctx.json(db.getOne(titleId).toString())
-                }
-            }
-            get("/genres/{p}") { ctx ->
-                DB().use { db ->
-                    ctx.contentType("application/json")
-                    ctx.result(db.getGenres(ctx.pathParam("{p}")).toString())
-                }
-            }
+                }  // END OF DB() USE
+            } // END OF GET ROUTE
         }
     }
 }
